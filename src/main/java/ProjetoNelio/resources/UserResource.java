@@ -1,19 +1,31 @@
 package ProjetoNelio.resources;
 
 import ProjetoNelio.entities.User;
+import ProjetoNelio.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
 public class UserResource {
 
-    @GetMapping
-    public ResponseEntity<User> findAll(){
+    @Autowired
+    private UserService userService;
 
-        User user = new User(1L,"Pedro","pedro@gmail.com","81991024299","12345");
+    @GetMapping
+    public ResponseEntity<List<User>> findAll(){
+
+        List<User> list = userService.findAll();
+
+        return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> findById(@PathVariable Long id){
+        User user = userService.findById(id);
         return ResponseEntity.ok().body(user);
     }
 }
