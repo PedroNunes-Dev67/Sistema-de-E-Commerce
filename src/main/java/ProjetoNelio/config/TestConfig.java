@@ -1,14 +1,8 @@
 package ProjetoNelio.config;
 
-import ProjetoNelio.entities.Category;
-import ProjetoNelio.entities.Order;
-import ProjetoNelio.entities.Product;
-import ProjetoNelio.entities.User;
+import ProjetoNelio.entities.*;
 import ProjetoNelio.entities.enums.OrderStatus;
-import ProjetoNelio.repository.CategoryRepository;
-import ProjetoNelio.repository.OrderRepository;
-import ProjetoNelio.repository.ProductRepository;
-import ProjetoNelio.repository.UserRepository;
+import ProjetoNelio.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +23,8 @@ public class TestConfig implements CommandLineRunner {
     private CategoryRepository categoryRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
