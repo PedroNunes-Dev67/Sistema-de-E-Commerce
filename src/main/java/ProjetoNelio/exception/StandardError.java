@@ -1,4 +1,4 @@
-package ProjetoNelio.resources.exceptions;
+package ProjetoNelio.exception;
 
 import java.io.Serializable;
 import java.time.Instant;

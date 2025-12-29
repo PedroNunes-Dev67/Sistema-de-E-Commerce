@@ -1,7 +1,7 @@
 package ProjetoNelio.config;
 
-import ProjetoNelio.entities.*;
-import ProjetoNelio.entities.enums.OrderStatus;
+import ProjetoNelio.model.*;
+import ProjetoNelio.model.enums.OrderStatus;
 import ProjetoNelio.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

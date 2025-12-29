@@ -1,4 +1,4 @@
-package ProjetoNelio.entities;
+package ProjetoNelio.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.EmbeddedId;

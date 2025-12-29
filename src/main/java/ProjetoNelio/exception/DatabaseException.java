@@ -1,4 +1,4 @@
-package ProjetoNelio.service.exceptions;
+package ProjetoNelio.exception;
 
 public class DatabaseException extends RuntimeException{
 

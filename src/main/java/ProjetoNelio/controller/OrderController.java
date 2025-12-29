@@ -1,7 +1,8 @@
-package ProjetoNelio.resources;
+package ProjetoNelio.controller;
 
-import ProjetoNelio.entities.Product;
-import ProjetoNelio.service.ProductService;
+
+import ProjetoNelio.model.Order;
+import ProjetoNelio.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,19 +13,19 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
-public class ProductResource {
+@RequestMapping("/orders")
+public class OrderController {
 
     @Autowired
-    private ProductService productService;
+    private OrderService orderService;
 
     @GetMapping
-    public ResponseEntity<List<Product>> findAll(){
-        return ResponseEntity.ok(productService.findAll());
+    public ResponseEntity<List<Order>> findAll(){
+        List<Order> list = orderService.findAll();
+        return ResponseEntity.ok(list);
     }
-
     @GetMapping("/{id}")
-    public ResponseEntity<Product> findById(@PathVariable Long id){
-        return ResponseEntity.ok(productService.findById(id));
+    public Order findById(@PathVariable Long id){
+        return orderService.findById(id);
     }
 }

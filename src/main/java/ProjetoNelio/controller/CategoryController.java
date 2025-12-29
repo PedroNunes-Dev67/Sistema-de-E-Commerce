@@ -1,7 +1,6 @@
-package ProjetoNelio.resources;
+package ProjetoNelio.controller;
 
-import ProjetoNelio.entities.Category;
-import ProjetoNelio.entities.User;
+import ProjetoNelio.model.Category;
 import ProjetoNelio.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/categories")
-public class CategoryResource {
+public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;

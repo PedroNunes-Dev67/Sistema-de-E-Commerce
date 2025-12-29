@@ -1,13 +1,12 @@
 package ProjetoNelio.service;
 
-import ProjetoNelio.entities.User;
+import ProjetoNelio.model.User;
 import ProjetoNelio.repository.UserRepository;
-import ProjetoNelio.service.exceptions.DatabaseException;
-import ProjetoNelio.service.exceptions.ResourceNotFoundException;
+import ProjetoNelio.exception.DatabaseException;
+import ProjetoNelio.exception.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

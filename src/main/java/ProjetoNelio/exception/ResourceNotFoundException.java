@@ -1,4 +1,4 @@
-package ProjetoNelio.service.exceptions;
+package ProjetoNelio.exception;
 
 public class ResourceNotFoundException extends RuntimeException{
 

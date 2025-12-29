@@ -1,6 +1,6 @@
 package ProjetoNelio.service;
 
-import ProjetoNelio.entities.Order;
+import ProjetoNelio.model.Order;
 import ProjetoNelio.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

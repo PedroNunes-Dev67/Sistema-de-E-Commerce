@@ -1,4 +1,4 @@
-package ProjetoNelio.entities;
+package ProjetoNelio.model;
 
 
 import jakarta.persistence.Embeddable;

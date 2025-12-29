@@ -1,7 +1,5 @@
-package ProjetoNelio.resources.exceptions;
+package ProjetoNelio.exception;
 
-import ProjetoNelio.service.exceptions.DatabaseException;
-import ProjetoNelio.service.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.time.Instant;
 
 @ControllerAdvice  //Mapeia as exceções do código
-public class ResourceExceptionHandler {
+public class GlobalExceptionHandler {
 
 
     //Diz qual exceção lançará se acontecer um ResourceNotFoundException

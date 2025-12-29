@@ -1,6 +1,6 @@
-package ProjetoNelio.entities;
+package ProjetoNelio.model;
 
-import ProjetoNelio.entities.enums.OrderStatus;
+import ProjetoNelio.model.enums.OrderStatus;
 import jakarta.persistence.*;
 
 import java.io.Serializable;

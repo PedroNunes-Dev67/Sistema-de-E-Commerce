@@ -1,4 +1,4 @@
-package ProjetoNelio.entities.enums;
+package ProjetoNelio.model.enums;
 
 public enum OrderStatus {
     WAITING_PAYMENT(1),

@@ -1,6 +1,6 @@
 package ProjetoNelio.service;
 
-import ProjetoNelio.entities.Category;
+import ProjetoNelio.model.Category;
 import ProjetoNelio.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
