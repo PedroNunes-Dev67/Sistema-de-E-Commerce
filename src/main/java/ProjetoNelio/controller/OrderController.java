@@ -1,6 +1,7 @@
 package ProjetoNelio.controller;
 
 
+import ProjetoNelio.dto.OrderDtoResponse;
 import ProjetoNelio.exception.StandardError;
 import ProjetoNelio.model.Order;
 import ProjetoNelio.service.OrderService;
@@ -31,8 +32,10 @@ public class OrderController {
     @ApiResponse(responseCode = "200", description = "Lista de pedidos buscada",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = Order.class)))
     @GetMapping
-    public ResponseEntity<List<Order>> findAll(){
-        List<Order> list = orderService.findAll();
+    public ResponseEntity<List<OrderDtoResponse>> findAll(){
+
+        List<OrderDtoResponse> list = orderService.findAll();
+
         return ResponseEntity.ok(list);
     }
 

@@ -73,13 +73,9 @@ public class Order implements Serializable {
         }
     }
 
-    public UserDtoResponse getClient() {
-        return new UserDtoResponse(
-                this.client.getId(),
-                this.client.getName(),
-                this.client.getEmail(),
-                this.client.getPhone()
-        );
+    public User getClient() {
+
+        return this.client;
     }
 
     public void setClient(User client) {
