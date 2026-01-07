@@ -1,5 +1,6 @@
 package ProjetoNelio.service;
 
+import ProjetoNelio.exception.ResourceNotFoundException;
 import ProjetoNelio.model.Order;
 import ProjetoNelio.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class OrderService {
     }
 
     public Order findById(Long id){
-        Optional<Order> obj = orderRepository.findById(id);
-        return obj.get();
+
+        return orderRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
     }
 }

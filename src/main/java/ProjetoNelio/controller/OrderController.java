@@ -1,8 +1,14 @@
 package ProjetoNelio.controller;
 
 
+import ProjetoNelio.exception.StandardError;
 import ProjetoNelio.model.Order;
 import ProjetoNelio.service.OrderService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +27,22 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @Operation(summary = "Busca uma lista de dados de todas os pedidos")
+    @ApiResponse(responseCode = "200", description = "Lista de pedidos buscada",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Order.class)))
     @GetMapping
     public ResponseEntity<List<Order>> findAll(){
         List<Order> list = orderService.findAll();
         return ResponseEntity.ok(list);
     }
+
+    @Operation(summary = "Busca os dados de um pedido pelo id passado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pedido encontrado",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Order.class))),
+            @ApiResponse(responseCode = "404", description = "Pedido não encontrado",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = StandardError.class)))
+    })
     @GetMapping("/{id}")
     public Order findById(@PathVariable Long id){
         return orderService.findById(id);

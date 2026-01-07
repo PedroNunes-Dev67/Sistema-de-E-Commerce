@@ -4,6 +4,7 @@ import ProjetoNelio.dto.UserDtoResponse;
 import ProjetoNelio.model.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -18,9 +19,12 @@ public class Order implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(example = "1")
     private Long id;
+    @Schema(example = "2019-04-03T03:38:21Z")
     private Instant dataHora;
 
+    @Schema(example = "WAITING_PAYMENT")
     private Integer orderStatus;
 
     @ManyToOne
