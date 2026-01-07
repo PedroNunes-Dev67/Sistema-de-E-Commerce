@@ -2,6 +2,8 @@ package ProjetoNelio.model;
 
 import ProjetoNelio.dto.UserDtoResponse;
 import ProjetoNelio.model.enums.OrderStatus;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -84,6 +86,7 @@ public class Order implements Serializable {
         return items;
     }
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Payment getPayment() {
         return payment;
     }

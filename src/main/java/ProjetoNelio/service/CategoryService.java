@@ -1,5 +1,6 @@
 package ProjetoNelio.service;
 
+import ProjetoNelio.exception.ResourceNotFoundException;
 import ProjetoNelio.model.Category;
 import ProjetoNelio.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class CategoryService {
     }
 
     public Category findById(Long id){
-        Optional<Category> obj = categoryRepository.findById(id);
-        return obj.get();
+
+        return categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
     }
 }

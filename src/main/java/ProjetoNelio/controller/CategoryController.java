@@ -1,7 +1,13 @@
 package ProjetoNelio.controller;
 
+import ProjetoNelio.exception.StandardError;
 import ProjetoNelio.model.Category;
 import ProjetoNelio.service.CategoryService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +26,9 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    @Operation(summary = "Busca uma lista de dados de todas as categorias")
+    @ApiResponse(responseCode = "200", description = "Lista de categorias buscada",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Category.class)))
     @GetMapping
     public ResponseEntity<List<Category>> findAll(){
 
@@ -28,6 +37,13 @@ public class CategoryController {
         return ResponseEntity.ok().body(list);
     }
 
+    @Operation(summary = "Busca os dados de uma categoria pelo Id passado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Categoria encontrada",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Category.class))),
+            @ApiResponse(responseCode = "404", description = "Categoria não encontrada",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = StandardError.class)))
+    })
     @GetMapping("/{id}")
     public ResponseEntity<Category> findById(@PathVariable Long id){
         Category category = categoryService.findById(id);
