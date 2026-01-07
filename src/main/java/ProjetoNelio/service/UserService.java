@@ -1,12 +1,12 @@
 package ProjetoNelio.service;
 
+import ProjetoNelio.dto.UserDtoRequest;
+import ProjetoNelio.dto.UserDtoResponse;
+import ProjetoNelio.exception.ConflictUserResource;
 import ProjetoNelio.model.User;
 import ProjetoNelio.repository.UserRepository;
-import ProjetoNelio.exception.DatabaseException;
 import ProjetoNelio.exception.ResourceNotFoundException;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,46 +18,77 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<User> findAll(){
+    public List<UserDtoResponse> findAll(){
 
-        return userRepository.findAll();
+        List<User> listUser = userRepository.findAll();
+
+        List<UserDtoResponse> listResponse = listUser.stream()
+                .map(user -> {
+                    return new UserDtoResponse(
+                            user.getId(),
+                            user.getName(),
+                            user.getEmail(),
+                            user.getPhone()
+                    );
+                }).toList();
+
+        return listResponse;
     }
 
-    public User findById(Long id){
-        Optional<User> obj = userRepository.findById(id);
-        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+    public UserDtoResponse findById(Long id){
+
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+
+        return new UserDtoResponse(user.getId(), user.getName(), user.getEmail(), user.getPhone());
     }
 
-    public User insert(User user){
-        return userRepository.save(user);
+    public UserDtoResponse insert(UserDtoRequest userDtoRequest){
+
+        if (userRepository.findByEmail(userDtoRequest.getEmail()).isPresent()){
+            throw new ConflictUserResource("Usuário já cadastrado");
+        }
+
+        User user = new User(userDtoRequest.getName(), userDtoRequest.getEmail(), userDtoRequest.getPhone(), userDtoRequest.getPassword());
+
+        userRepository.save(user);
+
+        return new UserDtoResponse(user.getId(), user.getName(), user.getEmail(), user.getPhone());
     }
 
     public void delete(Long id){
-        try {
-            if (!userRepository.existsById(id)) {
-                throw new ResourceNotFoundException(id);
-            }
-            userRepository.deleteById(id);
-        }
-        catch (DataIntegrityViolationException e){
-            throw new DatabaseException(e.getMessage());
-        }
+
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+
+        userRepository.delete(user);
     }
 
-    public User update(Long id, User user){
-        try {
-            User entity = userRepository.getReferenceById(id);
-            updateData(entity, user);
-            return userRepository.save(entity);
-        }
-        catch (EntityNotFoundException e){
-            throw new ResourceNotFoundException(id);
-        }
+    public UserDtoResponse update(Long id, UserDtoRequest userDtoRequest){
+
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+
+        verificacaoDadosUser(user, userDtoRequest);
+
+        user = updateData(user, userDtoRequest);
+
+        return new UserDtoResponse(
+                user.getId(),
+                user.getName(),
+                user.getEmail(),
+                user.getPhone()
+        );
     }
 
-    private void updateData(User entity, User user){
-        entity.setName(user.getName());
-        entity.setEmail(user.getEmail());
-        entity.setPhone(user.getPhone());
+    private User updateData(User user, UserDtoRequest userDtoRequest ){
+
+        user.setPassword(userDtoRequest.getPassword());
+
+        return userRepository.save(user);
+    }
+
+    private void verificacaoDadosUser(User user, UserDtoRequest userDtoRequest){
+
+        if (user.getPassword().equals(userDtoRequest.getPassword())){
+            throw new ConflictUserResource("Senha deve ser diferente da anterior");
+        }
     }
 }
