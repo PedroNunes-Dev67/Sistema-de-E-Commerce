@@ -24,8 +24,10 @@ public class OrderService {
                 }).toList();
     }
 
-    public Order findById(Long id){
+    public OrderDtoResponse findById(Long id){
 
-        return orderRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+        Order order = orderRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+
+        return new OrderDtoResponse(order);
     }
 }

@@ -47,7 +47,10 @@ public class OrderController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = StandardError.class)))
     })
     @GetMapping("/{id}")
-    public Order findById(@PathVariable Long id){
-        return orderService.findById(id);
+    public ResponseEntity<OrderDtoResponse> findById(@PathVariable Long id){
+
+        OrderDtoResponse order = orderService.findById(id);
+
+        return ResponseEntity.ok(order);
     }
 }
