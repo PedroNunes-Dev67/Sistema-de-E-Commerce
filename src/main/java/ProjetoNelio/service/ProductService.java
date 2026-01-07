@@ -1,12 +1,12 @@
 package ProjetoNelio.service;
 
+import ProjetoNelio.exception.ResourceNotFoundException;
 import ProjetoNelio.model.Product;
 import ProjetoNelio.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -15,11 +15,12 @@ public class ProductService {
     private ProductRepository productRepository;
 
     public List<Product> findAll(){
+
         return productRepository.findAll();
     }
 
     public Product findById(Long id){
-        Optional<Product> obj = productRepository.findById(id);
-        return obj.get();
+
+        return productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
     }
 }

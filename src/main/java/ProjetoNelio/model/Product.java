@@ -1,6 +1,7 @@
 package ProjetoNelio.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -15,10 +16,15 @@ public class Product implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(example = "1")
     private Long id;
+    @Schema(example = "The Lord of the Rings")
     private String name;
+    @Schema(example = "A good book")
     private String description;
+    @Schema(example = "90.5")
     private Double price;
+    @Schema(example = " ")
     private String imgUrl;
 
     @ManyToMany

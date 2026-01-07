@@ -1,5 +1,6 @@
 package ProjetoNelio.model;
 
+import ProjetoNelio.dto.UserDtoResponse;
 import ProjetoNelio.model.enums.OrderStatus;
 import jakarta.persistence.*;
 
@@ -66,8 +67,13 @@ public class Order implements Serializable {
         }
     }
 
-    public User getClient() {
-        return client;
+    public UserDtoResponse getClient() {
+        return new UserDtoResponse(
+                this.client.getId(),
+                this.client.getName(),
+                this.client.getEmail(),
+                this.client.getPhone()
+        );
     }
 
     public void setClient(User client) {
