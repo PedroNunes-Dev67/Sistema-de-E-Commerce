@@ -6,9 +6,9 @@ import ProjetoNelio.model.Order;
 import ProjetoNelio.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class OrderService {
@@ -16,7 +16,9 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Transactional(readOnly = true)
     public List<OrderDtoResponse> findAll(){
+
         return orderRepository.findAll()
                 .stream()
                 .map(order -> {
@@ -24,6 +26,7 @@ public class OrderService {
                 }).toList();
     }
 
+    @Transactional(readOnly = true)
     public OrderDtoResponse findById(Long id){
 
         Order order = orderRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));

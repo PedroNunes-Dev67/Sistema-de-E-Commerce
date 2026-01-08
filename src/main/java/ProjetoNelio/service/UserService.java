@@ -8,9 +8,9 @@ import ProjetoNelio.repository.UserRepository;
 import ProjetoNelio.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -18,6 +18,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Transactional(readOnly = true)
     public List<UserDtoResponse> findAll(){
 
         List<User> listUser = userRepository.findAll();
@@ -35,6 +36,7 @@ public class UserService {
         return listResponse;
     }
 
+    @Transactional(readOnly = true)
     public UserDtoResponse findById(Long id){
 
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
@@ -42,6 +44,7 @@ public class UserService {
         return new UserDtoResponse(user.getId(), user.getName(), user.getEmail(), user.getPhone());
     }
 
+    @Transactional
     public UserDtoResponse insert(UserDtoRequest userDtoRequest){
 
         if (userRepository.findByEmail(userDtoRequest.getEmail()).isPresent()){
@@ -55,6 +58,7 @@ public class UserService {
         return new UserDtoResponse(user.getId(), user.getName(), user.getEmail(), user.getPhone());
     }
 
+    @Transactional
     public void delete(Long id){
 
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
@@ -62,6 +66,7 @@ public class UserService {
         userRepository.delete(user);
     }
 
+    @Transactional
     public UserDtoResponse update(Long id, UserDtoRequest userDtoRequest){
 
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
