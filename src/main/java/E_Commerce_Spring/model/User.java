@@ -1,15 +1,14 @@
 package E_Commerce_Spring.model;
 
+import E_Commerce_Spring.model.enums.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_user")
@@ -22,6 +21,8 @@ public class User implements Serializable, UserDetails {
     private String email;
     private String phone;
     private String password;
+
+    private Set<UserRole> roles;
 
     @JsonIgnore
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
@@ -71,7 +72,10 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return this.roles
+                .stream()
+                .map(role -> new SimpleGrantedAuthority(role.name()))
+                .toList();
     }
 
     public String getPassword() {
