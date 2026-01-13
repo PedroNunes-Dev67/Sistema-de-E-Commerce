@@ -11,8 +11,8 @@
 	<groupId>PedroNunesDev</groupId>
 	<artifactId>ProjetoNelio</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Projeto_Nelio</name>
-	<description>Projeto nelio web service</description>
+	<name>E_Commerce_Spring</name>
+	<description>Projeto De E-Commerce utilizando Spring data JPA</description>
 	<url/>
 	<licenses>
 		<license/>
