@@ -11,7 +11,7 @@
 ---
 
 ## 📋 Sobre o Projeto 
-O WorkShop-Springboot é uma API REST de E-Commerce desenvolvida em Java com Spring Boot, projetada para demonstrar a construção de um sistema backend completo para gerenciamento de pedidos, usuários, produtos, categorias e pagamentos.
+API REST de E-Commerce desenvolvida em Java com Spring Boot, projetada para demonstrar a construção de um sistema backend completo para gerenciamento de pedidos, usuários, produtos, categorias e pagamentos.
 O projeto serve como um exemplo prático de como utilizar o ecossistema Spring — incluindo Spring Boot e bibliotecas como Spring Data JPA — para criar uma aplicação robusta com relacionamentos entre entidades e operações
 típicas de um comércio eletrônico. Ele funciona como uma base didática e funcional para quem está aprendendo desenvolvimento backend com Spring Boot, aplicando conceitos importantes como arquitetura REST,
 persistência de dados em banco relacional (via JPA/Hibernate), e separação de responsabilidades entre camadas (Controller, Service, Repository).
@@ -25,6 +25,7 @@ persistência de dados em banco relacional (via JPA/Hibernate), e separação de
 - ✅ **Perfis de Ambiente** - Configurações separadas para desenvolvimento e produção
 - ✅ **Persistência em H2 Database** - Banco de dados para testes
 - ✅ **Consumo de Api externa com RestTemplate** - Classe para consumo de APis
+- ✅ **Testes com JUnit e Mockito** - Ambiente de testes devidamente estruturado
 ---
 
 ## 🚀 Tecnologias Utilizadas
@@ -47,6 +48,10 @@ persistência de dados em banco relacional (via JPA/Hibernate), e separação de
 
 ### Build & Deploy
 - **Maven** - Gerenciamento de dependências
+
+### Testes
+- **JUnit** - Testes Unitários
+- **Mockito** - Mocks de dados
 ---
 
 ## 📸 Screenshots
