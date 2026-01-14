@@ -8,6 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
 
@@ -30,7 +31,7 @@ public class UserRepositoryTest {
         User user = createUser(userDtoRequest);
 
         //Pego o usuário pelo email cadastrado
-        Optional<User> userFind = userRepository.findByEmail("pedro@gmail.com");
+        Optional<UserDetails> userFind = userRepository.findByEmail("pedro@gmail.com");
 
         //Valida que existe User no Optinal e que User é igual ao no momento da persistência
         Assertions.assertTrue(userFind.isPresent());
@@ -41,7 +42,7 @@ public class UserRepositoryTest {
     @DisplayName("Deve retornar um Optional vazio quando não possui usuario com aquele email no banco")
     void findByEmailTestFail(){
 
-        Optional<User> userFind = userRepository.findByEmail("pedro@gmail.com");
+        Optional<UserDetails> userFind = userRepository.findByEmail("pedro@gmail.com");
 
         //Valida que está vazio
         Assertions.assertTrue(userFind.isEmpty());
