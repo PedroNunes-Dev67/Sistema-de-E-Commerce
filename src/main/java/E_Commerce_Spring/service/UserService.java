@@ -1,12 +1,16 @@
 package E_Commerce_Spring.service;
 
+import E_Commerce_Spring.dto.LoginDto;
+import E_Commerce_Spring.dto.TokenDto;
 import E_Commerce_Spring.dto.UserDtoRequest;
 import E_Commerce_Spring.dto.UserDtoResponse;
 import E_Commerce_Spring.exception.ConflictUserResource;
 import E_Commerce_Spring.model.User;
+import E_Commerce_Spring.model.enums.UserRole;
 import E_Commerce_Spring.repository.UserRepository;
 import E_Commerce_Spring.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +21,12 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AuthService authService;
 
     @Transactional(readOnly = true)
     public List<UserDtoResponse> findAll(){
@@ -45,17 +55,27 @@ public class UserService {
     }
 
     @Transactional
-    public UserDtoResponse insert(UserDtoRequest userDtoRequest){
+    public UserDtoResponse cadastro(UserDtoRequest userDtoRequest){
 
-        if (userRepository.findByEmail(userDtoRequest.getEmail()).isPresent()){
-            throw new ConflictUserResource("Usuário já cadastrado");
-        }
+        if (userRepository.findByEmail(userDtoRequest.getEmail()).isPresent()) throw new ConflictUserResource("Usuário já cadastrado");
 
-        User user = new User(userDtoRequest.getName(), userDtoRequest.getEmail(), userDtoRequest.getPhone(), userDtoRequest.getPassword());
+        String passwordCrypt = passwordEncoder.encode(userDtoRequest.getPassword());
+
+        User user = new User(userDtoRequest.getName(), userDtoRequest.getEmail(), userDtoRequest.getPhone(), passwordCrypt);
+
+        user.getRoles().add(UserRole.ROLE_USER);
 
         userRepository.save(user);
 
-        return new UserDtoResponse(user.getId(), user.getName(), user.getEmail(), user.getPhone());
+        return new UserDtoResponse(user.getId(),user.getName(),user.getEmail(),user.getPhone());
+    }
+
+    @Transactional
+    public TokenDto login(LoginDto loginDto){
+
+        String token = authService.authenticateUser(loginDto);
+
+        return new TokenDto(token);
     }
 
     @Transactional

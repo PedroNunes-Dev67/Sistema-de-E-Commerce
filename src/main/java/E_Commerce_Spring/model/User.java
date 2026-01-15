@@ -22,7 +22,7 @@ public class User implements Serializable, UserDetails {
     private String phone;
     private String password;
 
-    private Set<UserRole> roles;
+    private Set<UserRole> roles = new HashSet<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
@@ -68,6 +68,10 @@ public class User implements Serializable, UserDetails {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Set<UserRole> getRoles() {
+        return roles;
     }
 
     @Override

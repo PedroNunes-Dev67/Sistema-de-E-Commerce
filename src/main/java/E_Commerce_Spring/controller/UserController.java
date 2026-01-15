@@ -1,5 +1,7 @@
 package E_Commerce_Spring.controller;
 
+import E_Commerce_Spring.dto.LoginDto;
+import E_Commerce_Spring.dto.TokenDto;
 import E_Commerce_Spring.dto.UserDtoRequest;
 import E_Commerce_Spring.dto.UserDtoResponse;
 import E_Commerce_Spring.exception.StandardError;
@@ -63,10 +65,10 @@ public class UserController {
             @ApiResponse(responseCode = "409", description = "Usuário já cadastrado",
                     content = @Content(mediaType = "applicatin/json", schema = @Schema(implementation = StandardError.class)))
     })
-    @PostMapping
-    public ResponseEntity<UserDtoResponse> addUser(@RequestBody @Valid UserDtoRequest userDtoRequest){
+    @PostMapping("/cadastro")
+    public ResponseEntity<UserDtoResponse> cadastro(@RequestBody @Valid UserDtoRequest userDtoRequest){
 
-        UserDtoResponse newUser = userService.insert(userDtoRequest);
+        UserDtoResponse newUser = userService.cadastro(userDtoRequest);
 
         return ResponseEntity.created(currentUri(newUser.getId())).body(newUser);
     }
@@ -74,6 +76,14 @@ public class UserController {
     private static URI currentUri(Object id){
         return ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(id).toUri();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<TokenDto> login(@RequestBody @Valid LoginDto loginDto){
+
+        TokenDto token = userService.login(loginDto);
+
+        return ResponseEntity.ok(token);
     }
 
     @Operation(summary = "Deleta um usuário por Id passado")
