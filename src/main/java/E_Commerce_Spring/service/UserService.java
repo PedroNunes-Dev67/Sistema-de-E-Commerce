@@ -1,9 +1,6 @@
 package E_Commerce_Spring.service;
 
-import E_Commerce_Spring.dto.LoginDto;
-import E_Commerce_Spring.dto.TokenDto;
-import E_Commerce_Spring.dto.UserDtoRequest;
-import E_Commerce_Spring.dto.UserDtoResponse;
+import E_Commerce_Spring.dto.*;
 import E_Commerce_Spring.exception.ConflictUserResource;
 import E_Commerce_Spring.model.User;
 import E_Commerce_Spring.model.enums.UserRole;
@@ -87,13 +84,13 @@ public class UserService {
     }
 
     @Transactional
-    public UserDtoResponse update(Long id, UserDtoRequest userDtoRequest){
+    public UserDtoResponse update(Long id, UpdateDtoRequest updateDtoRequest){
 
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
 
-        verificacaoDadosUser(user, userDtoRequest);
+        verificacaoDadosUser(user, updateDtoRequest);
 
-        user = updateData(user, userDtoRequest);
+        user = updateData(user, updateDtoRequest);
 
         return new UserDtoResponse(
                 user.getId(),
@@ -103,16 +100,16 @@ public class UserService {
         );
     }
 
-    private User updateData(User user, UserDtoRequest userDtoRequest ){
+    private User updateData(User user, UpdateDtoRequest updateDtoRequest ){
 
-        user.setPassword(userDtoRequest.getPassword());
+        user.setPassword(updateDtoRequest.getPassword());
 
         return userRepository.save(user);
     }
 
-    private void verificacaoDadosUser(User user, UserDtoRequest userDtoRequest){
+    private void verificacaoDadosUser(User user, UpdateDtoRequest updateDtoRequest){
 
-        if (user.getPassword().equals(userDtoRequest.getPassword())){
+        if (user.getPassword().equals(updateDtoRequest.getPassword())){
             throw new ConflictUserResource("Senha deve ser diferente da anterior");
         }
     }

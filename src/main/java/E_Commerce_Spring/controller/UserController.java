@@ -1,9 +1,6 @@
 package E_Commerce_Spring.controller;
 
-import E_Commerce_Spring.dto.LoginDto;
-import E_Commerce_Spring.dto.TokenDto;
-import E_Commerce_Spring.dto.UserDtoRequest;
-import E_Commerce_Spring.dto.UserDtoResponse;
+import E_Commerce_Spring.dto.*;
 import E_Commerce_Spring.exception.StandardError;
 import E_Commerce_Spring.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -111,9 +108,9 @@ public class UserController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = StandardError.class)))
     })
     @PutMapping("/{id}")
-    public ResponseEntity<UserDtoResponse> update(@PathVariable(name = "id") Long id, @RequestBody @Valid UserDtoRequest userDtoRequest){
+    public ResponseEntity<UserDtoResponse> update(@PathVariable(name = "id") Long id, @RequestBody @Valid UpdateDtoRequest updateDtoRequest){
 
-         UserDtoResponse user = userService.update(id, userDtoRequest);
+         UserDtoResponse user = userService.update(id, updateDtoRequest);
 
          return ResponseEntity.ok(user);
     }
