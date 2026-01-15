@@ -18,13 +18,13 @@ public class TokenService {
 
     public String generateToken(User user){
 
-        Algorithm algorithm = Algorithm.HMAC256(secretKey);
+        Algorithm algorithm = Algorithm.HMAC256(secretKey);  //Algoritmo de geração do token
 
         try {
             String token = JWT.create()
                     .withIssuer("auth-api")
-                    .withSubject(user.getEmail())
-                    .withExpiresAt(expireAtGenerate())
+                    .withSubject(user.getEmail()) //Email do usuário que está sendo gerado o token
+                    .withExpiresAt(expireAtGenerate()) //Tempo de expiração de 15 dias a partir do método
                     .sign(algorithm);
 
             return token;
@@ -40,18 +40,19 @@ public class TokenService {
 
         try {
             String subjectUser = JWT.require(algorithm)
-                    .withIssuer("auth-api")
+                    .withIssuer("auth-api")  //Requer esta assinatura no token
                     .build()
-                    .verify(token)
+                    .verify(token)//Verifica o token se está nos conformes
                     .getSubject();
 
-            return subjectUser;
+            return subjectUser; //Retorna o subject deste token, o email do usuário
         }
         catch (JWTVerificationException e){
             return "";
         }
     }
 
+    //Metodo para gerar tempo de expiração de 15 dias do token
     private Instant expireAtGenerate(){
         return Instant.now().plusSeconds(129600);
     }
