@@ -28,32 +28,6 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @Operation(summary = "Busca uma lista de dados de todas os pedidos")
-    @ApiResponse(responseCode = "200", description = "Lista de pedidos buscada",
-            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Order.class)))
-    @GetMapping
-    public ResponseEntity<List<OrderDtoResponse>> findAll(){
-
-        List<OrderDtoResponse> list = orderService.findAll();
-
-        return ResponseEntity.ok(list);
-    }
-
-    @Operation(summary = "Busca os dados de um pedido pelo id passado")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Pedido encontrado",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Order.class))),
-            @ApiResponse(responseCode = "404", description = "Pedido não encontrado",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = StandardError.class)))
-    })
-    @GetMapping("/{id}")
-    public ResponseEntity<OrderDtoResponse> findById(@PathVariable Long id){
-
-        OrderDtoResponse order = orderService.findById(id);
-
-        return ResponseEntity.ok(order);
-    }
-
     @PostMapping
     public ResponseEntity<OrderDtoResponse> createOrder(){
 

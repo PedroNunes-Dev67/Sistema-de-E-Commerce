@@ -44,18 +44,4 @@ public class ProductController {
     public ResponseEntity<Product> findById(@PathVariable Long id){
         return ResponseEntity.ok(productService.findById(id));
     }
-
-    @Operation(summary = "Deleta um produto pelo Id passado")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "Produto encontrado"),
-            @ApiResponse(responseCode = "404", description = "Produto não encontrado",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = StandardError.class)))
-    })
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(Long id){
-
-        productService.delete(id);
-
-        return ResponseEntity.noContent().build();
-    }
 }

@@ -30,33 +30,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Operation(summary = "Busca uma lista com todos os usuários no banco de dados")
-    @ApiResponses(
-            @ApiResponse(responseCode = "200",description = "Lista de usuários buscada",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDtoResponse.class)))
-    )
-    @GetMapping
-    public ResponseEntity<List<UserDtoResponse>> findAll(){
-
-        List<UserDtoResponse> list = userService.findAll();
-
-        return ResponseEntity.ok().body(list);
-    }
-
-    @Operation(summary = "Retorna os dados de um usuário através do Id passado")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Usuário encontrado",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDtoResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Usuário não encontrado",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = StandardError.class)))
-    })
-    @GetMapping("/{id}")
-    public ResponseEntity<UserDtoResponse> findById(@PathVariable Long id){
-
-        UserDtoResponse user = userService.findById(id);
-        return ResponseEntity.ok().body(user);
-    }
-
     @GetMapping("/me")
     public ResponseEntity<UserDtoResponse> me(){
 
