@@ -1,13 +1,16 @@
 package E_Commerce_Spring.config;
 
 import E_Commerce_Spring.model.*;
+import E_Commerce_Spring.model.enums.UserRole;
 import E_Commerce_Spring.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @Profile("test")
@@ -18,6 +21,12 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
@@ -49,5 +58,12 @@ public class TestConfig implements CommandLineRunner {
         product8.getCategories().add(categoria4);
 
         productRepository.saveAll(Arrays.asList(product1,product2,product3,product4,product5,product6,product7,product8));
+
+        String senha = passwordEncoder.encode("1234");
+
+        User user = new User("Pedro Nunes", "pedro@gmail.com","81991024299",senha);
+        user.getRoles().addAll(List.of(UserRole.ROLE_USER, UserRole.ROLE_ADMIN));
+
+        userRepository.save(user);
     }
 }

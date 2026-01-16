@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ConflictUserResource.class)
     public ResponseEntity<StandardError> database(ConflictUserResource e, HttpServletRequest request){
-        String error = "Database error";
+        String error = "Conflict resource";
         HttpStatus status = HttpStatus.CONFLICT;
         StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(),request.getRequestURI());
         return ResponseEntity.status(status).body(err);
@@ -40,7 +40,15 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<StandardError> database(MethodArgumentNotValidException e, HttpServletRequest request){
-        String error = "Database error";
+        String error = "Validation active";
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(),request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<StandardError> database(IllegalArgumentException e, HttpServletRequest request){
+        String error = "Illegal Argument";
         HttpStatus status = HttpStatus.BAD_REQUEST;
         StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(),request.getRequestURI());
         return ResponseEntity.status(status).body(err);

@@ -5,6 +5,7 @@ import E_Commerce_Spring.model.OrderItem;
 import E_Commerce_Spring.model.Payment;
 import E_Commerce_Spring.model.User;
 import E_Commerce_Spring.model.enums.OrderStatus;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.time.Instant;
 import java.util.Set;
@@ -53,6 +54,14 @@ public class OrderDtoResponse {
         this.client = new UserDtoResponse(client.getId(), client.getName(), client.getEmail(), client.getPhone());
     }
 
+    public Double getTotal(){
+        return items.stream().mapToDouble(item -> {
+            Double sum = 0.0;
+            return sum += item.getSubTotal();
+        }).sum();
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Set<OrderItem> getItems() {
         return items;
     }
@@ -61,6 +70,7 @@ public class OrderDtoResponse {
         this.items = items;
     }
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Payment getPayment() {
         return payment;
     }
