@@ -1,4 +1,4 @@
-package E_Commerce_Spring.dto;
+package E_Commerce_Spring.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

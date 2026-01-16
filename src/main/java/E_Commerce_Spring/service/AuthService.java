@@ -1,6 +1,6 @@
 package E_Commerce_Spring.service;
 
-import E_Commerce_Spring.dto.LoginDto;
+import E_Commerce_Spring.dto.request.LoginDto;
 import E_Commerce_Spring.model.User;
 import E_Commerce_Spring.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;

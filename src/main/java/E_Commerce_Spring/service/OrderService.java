@@ -1,6 +1,6 @@
 package E_Commerce_Spring.service;
 
-import E_Commerce_Spring.dto.OrderDtoResponse;
+import E_Commerce_Spring.dto.response.OrderDtoResponse;
 import E_Commerce_Spring.exception.ResourceNotFoundException;
 import E_Commerce_Spring.model.Order;
 import E_Commerce_Spring.repository.OrderRepository;

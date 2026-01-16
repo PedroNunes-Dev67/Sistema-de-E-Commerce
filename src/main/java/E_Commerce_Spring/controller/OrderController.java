@@ -1,7 +1,7 @@
 package E_Commerce_Spring.controller;
 
 
-import E_Commerce_Spring.dto.OrderDtoResponse;
+import E_Commerce_Spring.dto.response.OrderDtoResponse;
 import E_Commerce_Spring.exception.StandardError;
 import E_Commerce_Spring.model.Order;
 import E_Commerce_Spring.service.OrderService;

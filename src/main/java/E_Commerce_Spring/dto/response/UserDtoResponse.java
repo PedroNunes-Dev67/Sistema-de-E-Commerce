@@ -1,4 +1,4 @@
-package E_Commerce_Spring.dto;
+package E_Commerce_Spring.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

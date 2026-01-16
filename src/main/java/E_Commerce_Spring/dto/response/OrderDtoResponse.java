@@ -1,4 +1,4 @@
-package E_Commerce_Spring.dto;
+package E_Commerce_Spring.dto.response;
 
 import E_Commerce_Spring.model.Order;
 import E_Commerce_Spring.model.OrderItem;

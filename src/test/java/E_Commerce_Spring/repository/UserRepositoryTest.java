@@ -1,6 +1,6 @@
 package E_Commerce_Spring.repository;
 
-import E_Commerce_Spring.dto.UserDtoRequest;
+import E_Commerce_Spring.dto.request.UserDtoRequest;
 import E_Commerce_Spring.model.User;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Assertions;
