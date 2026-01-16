@@ -32,6 +32,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/users/cadastro", "/users/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/categories", "/categories/{id}", "/orders", "/products", "/products/{id}",
                                 "/users", "/users/{id}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/categories").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/products/{id}").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
