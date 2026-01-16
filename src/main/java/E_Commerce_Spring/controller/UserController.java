@@ -57,6 +57,14 @@ public class UserController {
         return ResponseEntity.ok().body(user);
     }
 
+    @GetMapping("/me")
+    public ResponseEntity<UserDtoResponse> me(){
+
+        UserDtoResponse user = userService.me();
+
+        return ResponseEntity.ok(user);
+    }
+
     @Operation(summary = "Cadastra um novo usuário")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Usuário criado com sucesso",

@@ -71,6 +71,14 @@ public class UserService {
         return new UserDtoResponse(user.getId(),user.getName(),user.getEmail(),user.getPhone());
     }
 
+    @Transactional(readOnly = true)
+    public UserDtoResponse me(){
+
+        User user = authService.getUserAuthenticate();
+
+        return new UserDtoResponse(user.getId(), user.getName(), user.getEmail(), user.getPhone());
+    }
+
     @Transactional
     public TokenDto login(LoginDto loginDto){
 
