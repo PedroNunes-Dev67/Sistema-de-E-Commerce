@@ -1,6 +1,7 @@
 package E_Commerce_Spring.model;
 
 import E_Commerce_Spring.model.enums.OrderStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
@@ -70,6 +71,7 @@ public class Order implements Serializable {
         }
     }
 
+    @JsonIgnore
     public User getClient() {
 
         return this.client;

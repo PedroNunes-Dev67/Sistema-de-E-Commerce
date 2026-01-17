@@ -13,6 +13,8 @@ import E_Commerce_Spring.repository.OrderItemRepository;
 import E_Commerce_Spring.repository.OrderRepository;
 import E_Commerce_Spring.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -82,5 +84,16 @@ public class OrderService {
         orderItemRepository.save(orderItem);
 
         return new OrderDtoResponse(order);
+    }
+
+    public Page<Order> findByOrderReferencesClient(int page){
+
+        User client = authService.getUserAuthenticate();
+
+        Page<Order> pageFind = orderRepository.findByClient(client, PageRequest.of(page, 1));
+
+        if (pageFind.getContent().isEmpty()) return null;
+
+        return pageFind;
     }
 }
