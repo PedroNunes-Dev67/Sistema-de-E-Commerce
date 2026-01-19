@@ -7,10 +7,10 @@ import java.io.Serializable;
 
 public class LoginDto implements Serializable {
 
-    @NotBlank
-    @Email
+    @NotBlank(message = "Email obrigatório")
+    @Email(message = "Email inváldio")
     private String email;
-    @NotBlank
+    @NotBlank(message = "Senha obrigatória")
     private String password;
 
     public String getEmail() {

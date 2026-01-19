@@ -42,7 +42,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<StandardError> database(MethodArgumentNotValidException e, HttpServletRequest request){
         String error = "Validation active";
         HttpStatus status = HttpStatus.BAD_REQUEST;
-        StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(),request.getRequestURI());
+
+        String message = e.getBindingResult().getFieldError().getDefaultMessage();
+
+        StandardError err = new StandardError(Instant.now(), status.value(), error, message ,request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
 
