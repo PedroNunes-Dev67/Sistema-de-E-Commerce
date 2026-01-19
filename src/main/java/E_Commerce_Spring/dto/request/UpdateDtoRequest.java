@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public class UpdateDtoRequest {
 
-    @NotBlank
+    @NotBlank(message = "Senha obrigatória")
     private String password;
 
     public String getPassword() {

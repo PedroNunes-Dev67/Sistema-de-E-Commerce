@@ -5,14 +5,14 @@ import jakarta.validation.constraints.NotBlank;
 
 public class UserDtoRequest {
 
-    @NotBlank
+    @NotBlank(message = "Nome obrigatório")
     private String name;
-    @NotBlank
-    @Email
+    @NotBlank(message = "Email obrigatório")
+    @Email(message = "Email inválido")
     private String email;
-    @NotBlank
+    @NotBlank(message = "Telefone obrigatório")
     private String phone;
-    @NotBlank
+    @NotBlank(message = "Senha obrigatória")
     private String password;
 
     public UserDtoRequest(String name, String email, String phone, String password) {

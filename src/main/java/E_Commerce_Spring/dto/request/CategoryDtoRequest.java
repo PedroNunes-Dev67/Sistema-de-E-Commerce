@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class CategoryDtoRequest implements Serializable {
 
-    @NotBlank
+    @NotBlank(message = "Nome obrigatório")
     private String name;
 
     public String getName() {

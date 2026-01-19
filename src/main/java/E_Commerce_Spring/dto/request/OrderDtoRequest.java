@@ -4,11 +4,11 @@ import jakarta.validation.constraints.NotNull;
 
 public class OrderDtoRequest {
 
-    @NotNull
+    @NotNull(message = "id do produto obrigatório")
     private Long id_product;
-    @NotNull
+    @NotNull(message = "id do pedido obrigatório")
     private Long id_order;
-    @NotNull
+    @NotNull(message = "Quantidade obrigatória")
     private Integer quantity;
 
     public Long getId_product() {
