@@ -2,7 +2,7 @@ package E_Commerce_Spring.controller.admin;
 
 import E_Commerce_Spring.dto.response.OrderDtoResponse;
 import E_Commerce_Spring.service.OrderService;
-import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Hidden
+@Tag(name = "Admin Orders Controller", description = "Controle das funções de pedidos pelo admin")
 @RestController
 @RequestMapping("/admin/orders")
 public class AdminOrderController {

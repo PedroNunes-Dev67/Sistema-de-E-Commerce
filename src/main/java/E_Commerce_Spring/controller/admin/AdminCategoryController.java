@@ -4,7 +4,7 @@ import E_Commerce_Spring.dto.request.CategoryDtoRequest;
 import E_Commerce_Spring.dto.response.CategoryDtoResponse;
 import E_Commerce_Spring.model.Category;
 import E_Commerce_Spring.service.CategoryService;
-import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
-@Hidden
+@Tag(name = "Admin Category Controller", description = "Controle das funções de uma categoria pelo admin")
 @RestController
 @RequestMapping("/admin/categories")
 public class AdminCategoryController {

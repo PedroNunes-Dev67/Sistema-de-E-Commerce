@@ -1,14 +1,14 @@
 package E_Commerce_Spring.controller.admin;
 
 import E_Commerce_Spring.service.ProductService;
-import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Hidden
+@Tag(name = "Admin Product Controller", description = "Controle das funções de um produto pelo admin")
 @RestController
 @RequestMapping("/admin/products")
 public class AdminProductController {
