@@ -41,7 +41,7 @@ public class UserController {
     @Operation(summary = "Cadastra um novo usuário")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Usuário criado com sucesso",
-                    content = @Content(mediaType = "application/json")),
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDtoResponse.class))),
             @ApiResponse(responseCode = "400", description = "Validação de dados ativada",
                     content = @Content(mediaType = "applicatin/json", schema = @Schema(implementation = StandardError.class))),
             @ApiResponse(responseCode = "409", description = "Usuário já cadastrado",
@@ -60,6 +60,9 @@ public class UserController {
                 .path("/{id}").buildAndExpand(id).toUri();
     }
 
+    @Operation(summary = "Faz o login do usuário")
+    @ApiResponse(responseCode = "200", description = "Usuário logado")
+    @ApiResponse(responseCode = "403", description = "Erro ao logar usuário")
     @PostMapping("/login")
     public ResponseEntity<TokenDto> login(@RequestBody @Valid LoginDto loginDto){
 

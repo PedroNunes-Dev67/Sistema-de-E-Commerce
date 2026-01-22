@@ -29,6 +29,8 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @Operation(summary = "Cria um pedido para um usuário")
+    @ApiResponse(responseCode = "201",description = "Pedido criado")
     @PostMapping
     public ResponseEntity<OrderDtoResponse> createOrder(){
 
@@ -37,6 +39,10 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.CREATED).body(order);
     }
 
+    @Operation(summary = "Adiciona items de um pedido de um usuário")
+    @ApiResponse(responseCode = "201",description = "Pedido criado")
+    @ApiResponse(responseCode = "400", description = "Pedido não pertence ao usuário")
+    @ApiResponse(responseCode = "404", description = "Pedido ou produto não encontrado")
     @PostMapping("/orderitem")
     public ResponseEntity<OrderDtoResponse> createOrderItem(@RequestBody @Valid OrderDtoRequest orderDtoRequest){
 
@@ -45,6 +51,9 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.CREATED).body(order);
     }
 
+    @Operation(summary = "Pega os pedidos relacionados ao usuário",description = "Paginação de pedidos passando a pagina como paramentro")
+    @ApiResponse(responseCode = "200",description = "Pedidos retornados")
+    @ApiResponse(responseCode = "204",description = "Usuário não possui pedidos")
     @GetMapping
     public ResponseEntity<Page<Order>> findByOrderReferencesClient(@RequestParam int page){
 

@@ -2,6 +2,8 @@ package E_Commerce_Spring.controller.admin;
 
 import E_Commerce_Spring.dto.response.OrderDtoResponse;
 import E_Commerce_Spring.service.OrderService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,8 @@ public class AdminOrderController {
     @Autowired
     private OrderService orderService;
 
+    @Operation(summary = "Retorna todos os pedidos do sistema")
+    @ApiResponse(responseCode = "200",description = "Pedidos retornado")
     @GetMapping
     public ResponseEntity<List<OrderDtoResponse>> findAll(){
 
@@ -28,6 +32,9 @@ public class AdminOrderController {
         return ResponseEntity.ok(list);
     }
 
+    @Operation(summary = "Retorna os dados de um pedido pelo id")
+    @ApiResponse(responseCode = "200",description = "Pedido retornado")
+    @ApiResponse(responseCode = "404",description = "Pedido não encontrado")
     @GetMapping("/{id}")
     public ResponseEntity<OrderDtoResponse> findById(@PathVariable Long id){
 

@@ -2,6 +2,8 @@ package E_Commerce_Spring.controller.admin;
 
 import E_Commerce_Spring.dto.response.UserDtoResponse;
 import E_Commerce_Spring.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,8 @@ public class AdminUserController {
     @Autowired
     private UserService userService;
 
+    @Operation(summary = "Retorna todos os usuários")
+    @ApiResponse(responseCode = "200",description = "Lista retornada")
     @GetMapping
     public ResponseEntity<List<UserDtoResponse>> findAll(){
 
@@ -28,6 +32,9 @@ public class AdminUserController {
         return ResponseEntity.ok().body(list);
     }
 
+    @Operation(summary = "Retorna os dados de um usuário pelo id")
+    @ApiResponse(responseCode = "200",description = "Usuario buscado")
+    @ApiResponse(responseCode = "404",description = "Usuário não encontrado")
     @GetMapping("/{id}")
     public ResponseEntity<UserDtoResponse> findById(@PathVariable Long id){
 

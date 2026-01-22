@@ -1,6 +1,8 @@
 package E_Commerce_Spring.controller.admin;
 
 import E_Commerce_Spring.service.ProductService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,9 @@ public class AdminProductController {
     @Autowired
     private ProductService productService;
 
+    @Operation(summary = "Deleta um produto pr id")
+    @ApiResponse(responseCode = "204",description = "Produto deletado")
+    @ApiResponse(responseCode = "404",description = "Produto não encontrado")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(Long id){
 
