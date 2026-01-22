@@ -6,12 +6,14 @@ import E_Commerce_Spring.dto.request.UserDtoRequest;
 import E_Commerce_Spring.dto.response.TokenDto;
 import E_Commerce_Spring.dto.response.UserDtoResponse;
 import E_Commerce_Spring.exception.StandardError;
+import E_Commerce_Spring.security.SecurityConfiguration;
 import E_Commerce_Spring.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,7 @@ import java.util.List;
 @Tag(name = "User Controller", description = "Controlador de funções relacionadas ao usuário")
 @RestController
 @RequestMapping("/users")
+@SecurityRequirement(name = SecurityConfiguration.SECURITY)
 public class UserController {
 
     @Autowired

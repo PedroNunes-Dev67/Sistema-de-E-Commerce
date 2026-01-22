@@ -1,9 +1,11 @@
 package E_Commerce_Spring.controller.admin;
 
 import E_Commerce_Spring.dto.response.UserDtoResponse;
+import E_Commerce_Spring.security.SecurityConfiguration;
 import E_Commerce_Spring.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import java.util.List;
 @Tag(name = "Admin User Controller", description = "Controle das funções de um usuário pelo admin")
 @RestController
 @RequestMapping("/admin/users")
+@SecurityRequirement(name = SecurityConfiguration.SECURITY)
 public class AdminUserController {
 
     @Autowired

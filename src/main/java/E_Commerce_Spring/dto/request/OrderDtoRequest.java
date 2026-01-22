@@ -1,5 +1,6 @@
 package E_Commerce_Spring.dto.request;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 public class OrderDtoRequest {
@@ -9,6 +10,7 @@ public class OrderDtoRequest {
     @NotNull(message = "id do pedido obrigatório")
     private Long id_order;
     @NotNull(message = "Quantidade obrigatória")
+    @Min(1)
     private Integer quantity;
 
     public Long getId_product() {

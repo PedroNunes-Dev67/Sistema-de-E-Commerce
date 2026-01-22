@@ -1,9 +1,11 @@
 package E_Commerce_Spring.controller;
 
 import E_Commerce_Spring.dto.response.OrderDtoResponse;
+import E_Commerce_Spring.security.SecurityConfiguration;
 import E_Commerce_Spring.service.PaymentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Payment Controller", description = "Controle das funções de um pagamento")
 @RestController
 @RequestMapping("/payments/order")
+@SecurityRequirement(name = SecurityConfiguration.SECURITY)
 public class PaymentController {
 
     @Autowired

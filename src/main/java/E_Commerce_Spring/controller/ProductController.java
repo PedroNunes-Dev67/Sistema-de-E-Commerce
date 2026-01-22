@@ -2,12 +2,14 @@ package E_Commerce_Spring.controller;
 
 import E_Commerce_Spring.exception.StandardError;
 import E_Commerce_Spring.model.Product;
+import E_Commerce_Spring.security.SecurityConfiguration;
 import E_Commerce_Spring.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import java.util.List;
 @Tag(name = "Product Controller", description = "Controlador de funções relacionadas aos produtos")
 @RestController
 @RequestMapping("/products")
+@SecurityRequirement(name = SecurityConfiguration.SECURITY)
 public class ProductController {
 
     @Autowired
