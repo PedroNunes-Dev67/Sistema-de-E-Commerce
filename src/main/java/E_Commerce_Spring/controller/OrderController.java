@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Order Controller", description = "Controlador de funções relacionadas a um pedido")
+@ApiResponse(responseCode = "403", description = "Usuário não autorizado", content = @Content(mediaType = "application/json"))
 @RestController
 @RequestMapping("/orders")
 @SecurityRequirement(name = SecurityConfiguration.SECURITY)
@@ -30,7 +31,8 @@ public class OrderController {
     private OrderService orderService;
 
     @Operation(summary = "Cria um pedido para um usuário")
-    @ApiResponse(responseCode = "201",description = "Pedido criado")
+    @ApiResponse(responseCode = "201",description = "Pedido criado",
+            content = @Content(mediaType = "application/json",schema = @Schema(implementation = OrderDtoResponse.class)))
     @PostMapping
     public ResponseEntity<OrderDtoResponse> createOrder(){
 
@@ -40,9 +42,12 @@ public class OrderController {
     }
 
     @Operation(summary = "Adiciona items de um pedido de um usuário")
-    @ApiResponse(responseCode = "201",description = "Pedido criado")
-    @ApiResponse(responseCode = "400", description = "Pedido não pertence ao usuário")
-    @ApiResponse(responseCode = "404", description = "Pedido ou produto não encontrado")
+    @ApiResponse(responseCode = "201",description = "Adicionado items ao pedido",
+            content = @Content(mediaType = "application/json",schema = @Schema(implementation = OrderDtoResponse.class)))
+    @ApiResponse(responseCode = "400", description = "Pedido não pertence ao usuário",
+            content = @Content(mediaType = "application/json",schema = @Schema(implementation = StandardError.class)))
+    @ApiResponse(responseCode = "404", description = "Pedido ou produto não encontrado",
+            content = @Content(mediaType = "application/json",schema = @Schema(implementation = StandardError.class)))
     @PostMapping("/orderitem")
     public ResponseEntity<OrderDtoResponse> createOrderItem(@RequestBody @Valid OrderDtoRequest orderDtoRequest){
 
@@ -52,7 +57,8 @@ public class OrderController {
     }
 
     @Operation(summary = "Pega os pedidos relacionados ao usuário",description = "Paginação de pedidos passando a pagina como paramentro")
-    @ApiResponse(responseCode = "200",description = "Pedidos retornados")
+    @ApiResponse(responseCode = "200",description = "Pedidos retornados",
+            content = @Content(mediaType = "application/json",schema = @Schema(implementation = Page.class)))
     @ApiResponse(responseCode = "204",description = "Usuário não possui pedidos")
     @GetMapping
     public ResponseEntity<Page<Order>> findByOrderReferencesClient(@RequestParam int page){

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Tag(name = "Product Controller", description = "Controlador de funções relacionadas aos produtos")
+@ApiResponse(responseCode = "403", description = "Usuário não autorizado", content = @Content(mediaType = "application/json"))
 @RestController
 @RequestMapping("/products")
 @SecurityRequirement(name = SecurityConfiguration.SECURITY)

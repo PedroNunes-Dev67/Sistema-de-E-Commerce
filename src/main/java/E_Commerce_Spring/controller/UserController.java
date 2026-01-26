@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @Tag(name = "User Controller", description = "Controlador de funções relacionadas ao usuário")
+@ApiResponse(responseCode = "403", description = "Usuário não autorizado", content = @Content(mediaType = "application/json"))
 @RestController
 @RequestMapping("/users")
 @SecurityRequirement(name = SecurityConfiguration.SECURITY)
@@ -33,6 +33,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Operation(summary = "Retorna usuário autenticado")
+    @ApiResponse(responseCode = "200", description = "Usuário encontrado",
+        content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDtoResponse.class)))
     @GetMapping("/me")
     public ResponseEntity<UserDtoResponse> me(){
 
@@ -64,7 +67,8 @@ public class UserController {
     }
 
     @Operation(summary = "Faz o login do usuário")
-    @ApiResponse(responseCode = "200", description = "Usuário logado")
+    @ApiResponse(responseCode = "200", description = "Usuário logado",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = TokenDto.class)))
     @ApiResponse(responseCode = "403", description = "Erro ao logar usuário")
     @PostMapping("/login")
     public ResponseEntity<TokenDto> login(@RequestBody @Valid LoginDto loginDto){

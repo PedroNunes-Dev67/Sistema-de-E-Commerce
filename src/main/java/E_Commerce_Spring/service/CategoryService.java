@@ -19,9 +19,13 @@ public class CategoryService {
     private CategoryRepository categoryRepository;
 
     @Transactional(readOnly = true)
-    public List<Category> findAll(){
+    public List<CategoryDtoResponse> findAll(){
 
-        return categoryRepository.findAll();
+        return categoryRepository.findAll()
+                .stream()
+                .map(category -> {
+                    return new CategoryDtoResponse(category.getId(), category.getName());
+                }).toList();
     }
 
     @Transactional(readOnly = true)
